@@ -5,3 +5,7 @@ Our intial idea ( thank-you Juan Benet for originally seeding this idea at  Live
 People can store their photos in Filecoin and or on their Fx BLox ( Functionland) and then retrieve and sell the photos to others upon request in Near Token, $Fil and next quarter, $FuLA
 Wish us luck and join us if you wish!
 Kate, Jainam and Sushmit 
+
+
+Hello NEAR Contract
+The smart contract exposes two methods to enable storing and retrieving a greeting in the NEAR network.
