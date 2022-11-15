@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import Arweave from "arweave";
 
 import { HelloNEAR } from '../near-interface';
 import { Wallet } from '../near-wallet';
 import { EducationalText } from '../ui-components';
+
+
+const arweave = Arweave.init({
+    host: "127.0.0.1",
+    port: 1984,
+    protocol: "http",
+  });
 
 const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
 
