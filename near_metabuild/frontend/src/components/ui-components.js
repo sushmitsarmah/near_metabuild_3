@@ -1,38 +1,37 @@
 import React from 'react';
-import '../assets/global.css';
+// import '../assets/global.css';
 
 export function SignInPrompt({greeting, onClick}) {
   return (
-    <main>
-      <h1>
+    <main className='flex flex-col items-center gap-4'>
+      <h1 className='font-bold text-5xl'>
         The contract says: <span className="greeting">{greeting}</span>
       </h1>
-      <h3>
+      <h3 className='font-bold text-3xl'>
         Welcome to NEAR!
       </h3>
-      <p>
+      <p className='text-xl'>
         Your contract is storing a greeting message in the NEAR blockchain. To
         change it you need to sign in using the NEAR Wallet. It is very simple,
         just use the button below.
       </p>
-      <p>
+      <p className='text-xl'>
         Do not worry, this app runs in the test network ("testnet"). It works
         just like the main network ("mainnet"), but using NEAR Tokens that are
         only for testing!
       </p>
-      <br/>
-      <p style={{ textAlign: 'center' }}>
-        <button onClick={onClick}>Sign in with NEAR Wallet</button>
-      </p>
+      <button className='btn btn-primary' onClick={onClick}>Sign in with NEAR Wallet</button>
     </main>
   );
 }
 
 export function SignOutButton({accountId, onClick}) {
   return (
-    <button style={{ float: 'right' }} onClick={onClick}>
-      Sign out {accountId}
-    </button>
+    <div className='w-full'>
+      <button className='btn btn-primary w-1/4 float-right' onClick={onClick}>
+        Sign out {accountId}
+      </button>
+    </div>
   );
 }
 

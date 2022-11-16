@@ -43,6 +43,7 @@ const UploadImage = () => {
 
     const saveToArweave = async () => {
         let data = bufferVal;
+        console.log(data)
         let transaction = await arweave.createTransaction(
             { data: data },
             arweaveKey
@@ -91,18 +92,14 @@ const UploadImage = () => {
     };
 
     return (
-        <div>
+        <div className="flex flex-row items-end gap-4">
             <div className="form-control w-full max-w-xs">
                 <label className="label">
                     <span className="label-text">Pick a file</span>
-                    <span className="label-text-alt">Alt label</span>
                 </label>
-                <input type="file" className="file-input file-input-bordered w-full max-w-xs" />
-                <label className="label">
-                    <span className="label-text-alt">Alt label</span>
-                    <span className="label-text-alt">Alt label</span>
-                </label>
+                <input type="file" className="file-input file-input-bordered w-full max-w-xs" onChange={processPic} />
             </div>
+            <button className="btn btn-success" onClick={saveToArweave}>Upload</button>
         </div>
     );
 };

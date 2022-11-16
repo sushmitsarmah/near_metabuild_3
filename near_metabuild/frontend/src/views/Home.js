@@ -36,27 +36,29 @@ const Home = ({ wallet, isSignedIn }) => {
     }, []);
 
     return (
-        <div className={'flex flex-col gap-4 ' + (uiPleaseWait ? 'please-wait' : '')}>
-            <h1>
+        <div className={'flex flex-col gap-4 items-center ' + (uiPleaseWait ? 'please-wait' : '')}>
+            <h1 className='font-bold text-2xl'>
                 The contract sushmit says: <span className="greeting">{valueFromBlockchain}</span>
             </h1>
             <form onSubmit={changeGreeting} className="change">
-                <label>Change greeting:</label>
-                <div>
-                    <input
-                        autoComplete="off"
-                        defaultValue={valueFromBlockchain}
-                        id="greetingInput"
-                    />
-                    <button>
-                        <span>Save</span>
-                        <div className="loader"></div>
-                    </button>
+                <div className="form-control flex flex-row">
+                    <label>Change greeting:</label>
+                    <div className="input-group">
+                        <input
+                            className="input input-bordered w-full max-w-xs"
+                            autoComplete="off"
+                            defaultValue={valueFromBlockchain}
+                            id="greetingInput"
+                        />
+                        <button className='btn btn-primary'>
+                            Save
+                            <div className="loader"></div>
+                        </button>
+                    </div>
                 </div>
             </form>
-            <button className="btn btn-primary">Button</button>
             {/* <EducationalText /> */}
-            <UploadImage wallet={wallet}/>
+            <UploadImage wallet={wallet} />
         </div>
     );
 };

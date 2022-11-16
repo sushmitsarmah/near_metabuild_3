@@ -22,7 +22,7 @@ export default function App() {
   }, [])
 
   return (
-    <>
+    <div className='flex flex-col gap-10 p-10'>
       {!isSignedIn
         ? <SignInPrompt greeting={valueFromBlockchain} onClick={() => wallet.signIn()} />
         : <>
@@ -33,6 +33,6 @@ export default function App() {
           </main>
         </>
       }
-    </>
+    </div>
   );
 }
