@@ -1,32 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import Arweave from "arweave";
 
-import { HelloNEAR } from '../near-interface';
-import { Wallet } from '../near-wallet';
-import { EducationalText } from '../ui-components';
+import { HelloNEAR } from '../web3/near-interface';
+import { EducationalText } from '../components/ui-components';
+import UploadImage from '../components/UploadImage';
 
-
-const arweave = Arweave.init({
-    host: "127.0.0.1",
-    port: 1984,
-    protocol: "http",
-  });
-
-const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
-
-//  Abstract the logic of interacting with the contract to simplify your flow
-const helloNEAR = new HelloNEAR({ contractId: process.env.CONTRACT_NAME, walletToUse: wallet });
-
-const Home = () => {
-    const [isSignedIn, setIsSignedIn] = useState(false);
+const Home = ({ wallet, isSignedIn }) => {
     const [valueFromBlockchain, setValueFromBlockchain] = useState('');
     const [uiPleaseWait, setUiPleaseWait] = useState(false);
+    const [helloNEAR, setHelloNEAR] = useState();
 
     const init = async () => {
-        const res = await wallet.startUp();
-        setIsSignedIn(res);
+        //  Abstract the logic of interacting with the contract to simplify your flow
+        const contract = new HelloNEAR({
+            contractId: process.env.CONTRACT_NAME,
+            walletToUse: wallet
+        });
+        setHelloNEAR(contract);
+
         try {
-            const val = await helloNEAR.getGreeting()
+            const val = await contract.getGreeting()
             setValueFromBlockchain(val);
         } catch (error) {
             alert(error);
@@ -48,7 +40,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className={uiPleaseWait ? 'please-wait' : ''}>
+        <div className={'flex flex-col gap-4 ' + (uiPleaseWait ? 'please-wait' : '')}>
             <h1>
                 The contract sushmit says: <span className="greeting">{valueFromBlockchain}</span>
             </h1>
@@ -66,7 +58,9 @@ const Home = () => {
                     </button>
                 </div>
             </form>
-            <EducationalText />
+            <button className="btn btn-primary">Button</button>
+            {/* <EducationalText /> */}
+            <UploadImage wallet={wallet}/>
         </div>
     );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../assets/global.css';
 
 export function SignInPrompt({greeting, onClick}) {
   return (
