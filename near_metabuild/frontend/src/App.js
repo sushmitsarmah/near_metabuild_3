@@ -8,11 +8,7 @@ import {
 import router from './Router';
 
 // NEAR
-import { Wallet } from './web3/near-wallet';
-
-// When creating the wallet you can optionally ask to create an access key
-// Having the key enables to call non-payable methods without interrupting the user to sign
-const wallet = new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME })
+import wallet from './web3/near-wallet';
 
 export default function App() {
   const [valueFromBlockchain, setValueFromBlockchain] = useState();

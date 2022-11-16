@@ -110,3 +110,7 @@ export class Wallet {
     return providers.getTransactionLastResult(transaction);
   }
 }
+
+// When creating the wallet you can optionally ask to create an access key
+// Having the key enables to call non-payable methods without interrupting the user to sign
+export default new Wallet({ createAccessKeyFor: process.env.CONTRACT_NAME });

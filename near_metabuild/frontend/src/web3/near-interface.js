@@ -3,7 +3,7 @@
 export class HelloNEAR {
   constructor({ contractId, walletToUse }) {
     this.contractId = contractId;
-    this.wallet = walletToUse;    
+    this.wallet = walletToUse;
   }
 
   async getGreeting() {
@@ -14,3 +14,12 @@ export class HelloNEAR {
     return await this.wallet.callMethod({ contractId: this.contractId, method: 'set_greeting', args: { message: greeting } });
   }
 }
+
+//  Abstract the logic of interacting with the contract to simplify your flow
+export default GetHelloNEARContract = (wallet) => {
+  const contract = new HelloNEAR({
+    contractId: process.env.CONTRACT_NAME,
+    walletToUse: wallet
+  });
+  return contract;
+};

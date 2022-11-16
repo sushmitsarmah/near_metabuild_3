@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { HelloNEAR } from '../web3/near-interface';
+import GetHelloNEARContract from '../web3/near-interface';
 import { EducationalText } from '../components/ui-components';
 import UploadImage from '../components/UploadImage';
 
@@ -10,11 +10,7 @@ const Home = ({ wallet, isSignedIn }) => {
     const [helloNEAR, setHelloNEAR] = useState();
 
     const init = async () => {
-        //  Abstract the logic of interacting with the contract to simplify your flow
-        const contract = new HelloNEAR({
-            contractId: process.env.CONTRACT_NAME,
-            walletToUse: wallet
-        });
+        const contract = GetHelloNEARContract(wallet);
         setHelloNEAR(contract);
 
         try {
