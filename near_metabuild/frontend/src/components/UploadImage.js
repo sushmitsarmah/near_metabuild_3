@@ -1,29 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import Arweave from "arweave";
+import axios from 'axios';
 
-const UploadImage = () => {
+const UploadImage = ({ setIPFSUrl }) => {
     // state variables
     const [bufferVal, changeBuffer] = useState([]);
     const [arweaveKey, changeArweaveKey] = useState("");
     const [getImage, changeGetImage] = useState("");
     const [transacitonID, changeTransactionID] = useState("");
-
-    const arweave = Arweave.init({
-        host: "127.0.0.1",
-        port: 1984,
-        protocol: "http",
-    });
-
-    useEffect(() => {
-        arweave.wallets.generate().then((key) => {
-            console.log(key);
-            changeArweaveKey(key);
-            // {
-            //     "kty": "RSA",
-            //     "n": "3WquzP5IVTIsv3XYJjfw5L-t4X34WoWHwOuxb9V8w...",
-            //     "e": ...
-        });
-    }, []);
 
     const processPic = (event) => {
         event.preventDefault();
@@ -32,40 +16,29 @@ const UploadImage = () => {
         // process file for ipfs
         console.log(event.target.files);
         const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.readAsArrayBuffer(file);
-        reader.onloadend = () => {
-            changeBuffer(reader.result);
-            console.log(reader.result);
-        };
+        changeBuffer(file);
     };
 
-    const saveToArweave = async () => {
-        let data = bufferVal;
-        console.log(data)
-        let transaction = await arweave.createTransaction(
-            { data: data },
-            arweaveKey
-        );
-        transaction.addTag("Content-Type", "image/png");
+    const saveToPinata = async () => {
+        var FormData = require('form-data');
+        var data = new FormData();
+        data.append('file', bufferVal);
+        data.append('pinataOptions', '{"cidVersion": 1}');
+        data.append('pinataMetadata', '{"name": "MyFile", "keyvalues": {"company": "Pinata"}}');
 
-        await arweave.transactions.sign(transaction, arweaveKey);
+        const config = {
+            method: 'post',
+            url: 'https://api.pinata.cloud/pinning/pinFileToIPFS',
+            headers: {
+                'Authorization': `Bearer ${process.env.REACT_APP_PINATA_JWT_TOKEN}`,
+                // ...data.getHeaders()
+            },
+            data: data
+        };
 
-        changeTransactionID(transaction.id);
+        const res = await axios(config);
 
-        console.log("transaction details");
-
-        console.log("I am logging the transaction id", transaction.id);
-
-        let uploader = await arweave.transactions.getUploader(transaction);
-
-        while (!uploader.isComplete) {
-            await uploader.uploadChunk();
-            console.log(
-                `${uploader.pctComplete}% complete, ${uploader.uploadedChunks}/${uploader.totalChunks}`
-            );
-        }
+        setIPFSUrl(res.data);
     };
 
     const getData = async () => {
@@ -99,7 +72,7 @@ const UploadImage = () => {
                 </label>
                 <input type="file" className="file-input file-input-bordered w-full max-w-xs" onChange={processPic} />
             </div>
-            <button className="btn btn-success" onClick={saveToArweave}>Upload</button>
+            <button className="btn btn-success" onClick={saveToPinata}>Upload</button>
         </div>
     );
 };

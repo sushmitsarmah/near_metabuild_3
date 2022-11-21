@@ -4,6 +4,8 @@ import GetHelloNEARContract from '../web3/near-interface';
 import { EducationalText } from '../components/ui-components';
 import UploadImage from '../components/UploadImage';
 
+import PhotoGallery from '../components/PhotoGallery';
+
 const Home = ({ wallet, isSignedIn }) => {
     const [valueFromBlockchain, setValueFromBlockchain] = useState('');
     const [uiPleaseWait, setUiPleaseWait] = useState(false);
@@ -32,33 +34,38 @@ const Home = ({ wallet, isSignedIn }) => {
     };
 
     useEffect(() => {
-        init();
-    }, []);
+        if(wallet.wallet) {
+            init();
+        }
+    }, [wallet.wallet]);
 
     return (
-        <div className={'flex flex-col gap-4 items-center ' + (uiPleaseWait ? 'please-wait' : '')}>
-            <h1 className='font-bold text-2xl'>
-                The contract sushmit says: <span className="greeting">{valueFromBlockchain}</span>
-            </h1>
-            <form onSubmit={changeGreeting} className="change">
-                <div className="form-control flex flex-row">
-                    <label>Change greeting:</label>
-                    <div className="input-group">
-                        <input
-                            className="input input-bordered w-full max-w-xs"
-                            autoComplete="off"
-                            defaultValue={valueFromBlockchain}
-                            id="greetingInput"
-                        />
-                        <button className='btn btn-primary'>
-                            Save
-                            <div className="loader"></div>
-                        </button>
+        <div className='container mx-auto'>
+            <div className={'flex flex-col gap-4 items-center ' + (uiPleaseWait ? 'please-wait' : '')}>
+                <h1 className='font-bold text-2xl'>
+                    The contract sushmit says: <span className="greeting">{valueFromBlockchain}</span>
+                </h1>
+                <form onSubmit={changeGreeting} className="change">
+                    <div className="form-control flex flex-row">
+                        <label>Change greeting:</label>
+                        <div className="input-group">
+                            <input
+                                className="input input-bordered w-full max-w-xs"
+                                autoComplete="off"
+                                defaultValue={valueFromBlockchain}
+                                id="greetingInput"
+                            />
+                            <button className='btn btn-primary'>
+                                Save
+                                <div className="loader"></div>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
-            {/* <EducationalText /> */}
-            <UploadImage wallet={wallet} />
+                </form>
+                {/* <EducationalText /> */}
+                {/* <UploadImage wallet={wallet} /> */}
+                <PhotoGallery />
+            </div>
         </div>
     );
 };

@@ -33,6 +33,11 @@ class StockImage {
     return this.ipfsBaseUrl;
   }
 
+  @view({}) // This method is read-only and can be called for free
+  get_all_images(): StockImageObj[] {
+    return this.ownerAccs;
+  }
+
   @call({}) // This method changes the state, for which it cost gas
   add_owner_images({ image, owner_acc }: { image: ImageObj, owner_acc: AccountId }): void {
     // Record a log permanently to the blockchain!

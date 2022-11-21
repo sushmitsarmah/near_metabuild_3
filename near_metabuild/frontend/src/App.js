@@ -2,6 +2,7 @@ import 'regenerator-runtime/runtime';
 import React, { useEffect, useState } from 'react';
 
 import { SignInPrompt, SignOutButton } from './components/ui-components';
+import Navbar from './components/Navbar';
 import {
   RouterProvider,
 } from "react-router-dom";
@@ -22,17 +23,9 @@ export default function App() {
   }, [])
 
   return (
-    <div className='flex flex-col gap-10 p-10'>
-      {!isSignedIn
-        ? <SignInPrompt greeting={valueFromBlockchain} onClick={() => wallet.signIn()} />
-        : <>
-          <SignOutButton accountId={wallet.accountId} onClick={() => wallet.signOut()} />
-          <main>
-
-            <RouterProvider router={router(wallet, isSignedIn)} />
-          </main>
-        </>
-      }
-    </div>
+    <>
+      <Navbar wallet={wallet} isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
+      <RouterProvider router={router(wallet, isSignedIn)} />
+    </>
   );
 }

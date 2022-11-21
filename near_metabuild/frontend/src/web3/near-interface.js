@@ -15,6 +15,7 @@ export class HelloNEAR {
   }
 }
 
+
 //  Abstract the logic of interacting with the contract to simplify your flow
 export default GetHelloNEARContract = (wallet) => {
   const contract = new HelloNEAR({

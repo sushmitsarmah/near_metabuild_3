@@ -10,4 +10,8 @@ fi
 echo ">> Deploying contract"
 
 # https://docs.near.org/tools/near-cli#near-dev-deploy
-near dev-deploy --wasmFile build/hello_near.wasm
+# echo ">> Deploying hello near contract"
+# near dev-deploy --wasmFile build/hello_near.wasm
+
+echo ">> Deploying stock image contract"
+near dev-deploy --wasmFile build/stock_image.wasm

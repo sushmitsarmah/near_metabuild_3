@@ -5,3 +5,7 @@
 .please-wait {
     pointer-events: none;
 }
+
+body {
+    background-color: blanchedalmond;
+}
