@@ -15,12 +15,13 @@ export class HelloNEAR {
   }
 }
 
-
 //  Abstract the logic of interacting with the contract to simplify your flow
-export default GetHelloNEARContract = (wallet) => {
+const GetHelloNEARContract = (wallet) => {
   const contract = new HelloNEAR({
     contractId: process.env.CONTRACT_NAME,
     walletToUse: wallet
   });
   return contract;
 };
+
+export default GetHelloNEARContract;

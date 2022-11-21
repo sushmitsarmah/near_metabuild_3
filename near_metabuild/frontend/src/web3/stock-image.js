@@ -36,10 +36,12 @@ export class StockImage {
 
 
 //  Abstract the logic of interacting with the contract to simplify your flow
-export default GetStockImageContract = (wallet) => {
+const GetStockImageContract = (wallet) => {
   const contract = new StockImage({
     contractId: process.env.CONTRACT_NAME,
     walletToUse: wallet
   });
   return contract;
 };
+
+export default GetStockImageContract;
