@@ -10,4 +10,4 @@ Kate, Jainam and Sushmit
 Hello NEAR Contract
 The smart contract exposes two methods to enable storing and retrieving a greeting in the NEAR network.
 
-We used Firebase for demostrative purposes.
+We used Firebase; and Pinata (IPFS Pinning) for demostrative purposes.
